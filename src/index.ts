@@ -57,6 +57,9 @@ app.put("/put/:id", (req: Request, res: Response) => {
         vehicle: vehicles[index],
     });
 });
+
+
+/*  */
 /* PATCH */
 app.patch("/patch/:id", (req: Request, res: Response) => {
     const id = Number(req.params.id);
@@ -78,7 +81,6 @@ app.patch("/patch/:id", (req: Request, res: Response) => {
         vehicle: vehicles[index]
     });
 });
-
 app.listen(port, () => {
     console.log(`El ejercicio esta corriendo en http://localhost:${port}`);
 });
