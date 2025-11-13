@@ -78,23 +78,6 @@ app.patch("/patch/:id", (req: Request, res: Response) => {
         vehicle: vehicles[index]
     });
 });
-/* DELETE */
-app.delete("/delete/:id", (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-
-    const index = vehicles.findIndex(g => g.id === id);
-
-    if (index === -1) {
-        return res.status(404).json({ message: "El vehiculo no esta registrado" });
-    }
-
-    const deletedVehicle = vehicles.splice(index, 1)[0];
-
-    res.status(200).json({
-        message: "Vehicle deleted successfully",
-        deleted: deletedVehicle
-    });
-});
 
 app.listen(port, () => {
     console.log(`El ejercicio esta corriendo en http://localhost:${port}`);
