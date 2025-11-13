@@ -1,0 +1,14 @@
+{
+    "watch": ["src", "config"],
+    "ignore": ["node_modules", "dist"],
+    "ext": "js,json,ts",
+    "exec": "ts-node src/index.ts",
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": 3000
+    },
+    "events": {
+        "restart": "echo 'Nodemon restarted!'",
+        "crash": "echo 'Nodemon crashed!'"
+    }
+}
