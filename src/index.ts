@@ -30,7 +30,7 @@ app.get("/disponible", (req: Request, res: Response) => {
 app.post("/post", (req: Request, res: Response) => {
     const { brand, model, year } = req.body;
     if (!brand || !model || !year) {
-        return res.status(201).json({ message: "Faltan datos del vehiculo." });
+        return res.status(465).json({ message: "Faltan datos del vehiculo." });
     }
     const lastVehicle = vehicles[vehicles.length - 1];
     const newId = lastVehicle ? lastVehicle.id + 1 : 1;
@@ -39,27 +39,24 @@ app.post("/post", (req: Request, res: Response) => {
         id: newId, brand, model, year, available: true,
     };
     vehicles.push(nuevoVehiculo);
-    res.status(203).json({ message: "Vehicle added successfully", vehicles: nuevoVehiculo, });
+    res.status(209).json({ message: "Vehicle added successfully", vehicles: nuevoVehiculo, });
 });
 /* PUT */
 app.put("/put/:id", (req: Request, res: Response) => {
-    const id = Number(req.params["id"]); // 👈 forma segura para convertir el id
+    const id = Number(req.params["id"]);
     const { brand, model, year, available }: Vehiculo = req.body;
 
     const index = vehicles.findIndex(v => v.id === id);
     if (index === -1) {
-        return res.status(204).json({ message: "El vehículo no está registrado" });
+        return res.status(421).json({ message: "El vehículo no está registrado" });
     }
 
     vehicles[index] = { id, brand, model, year, available };
-    res.status(200).json({
+    res.status(210).json({
         message: "Vehículo actualizado correctamente",
         vehicle: vehicles[index],
     });
 });
-
-
-/*  */
 /* PATCH */
 app.patch("/patch/:id", (req: Request, res: Response) => {
     const id = Number(req.params.id);
@@ -76,9 +73,24 @@ app.patch("/patch/:id", (req: Request, res: Response) => {
 
     }
 
-    res.status(200).json({
+    res.status(205).json({
         message: "Año actualizado correctamente",
         vehicle: vehicles[index]
+    });
+});
+/* DELETE */
+app.delete("/delete/:id", (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+
+    const index = vehicles.findIndex(g => g.id === id);
+    if (index === -1) {
+        return res.status(404).json({ message: "El vehiculo no esta registrado" });
+    }
+    const deleti = vehicles.splice(index, 1)[0];
+
+    res.status(200).json({
+        message: "Vehicle deleted successfully",
+        deleted: deleti
     });
 });
 app.listen(port, () => {
